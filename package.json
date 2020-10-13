@@ -1,0 +1,26 @@
+{
+  "name": "kab",
+  "version": "1.0.0",
+  "description": "kab the lab manager",
+  "main": "dataStorage.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/d4rckh/kab.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/d4rckh/kab/issues"
+  },
+  "homepage": "https://github.com/d4rckh/kab#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "ejs": "^3.1.5",
+    "expressjs": "^1.0.1",
+    "lowdb": "^1.0.0"
+  }
+}

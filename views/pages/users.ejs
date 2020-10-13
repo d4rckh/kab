@@ -1,0 +1,56 @@
+
+<div class="hero is-info">
+    <div class="hero-body">
+        <p class="title">kab users</p>
+        <p class="subtitle">see your users here</p>
+    </div>
+</div>
+<br>
+
+<a href="/adduser" class="fa-lg">
+    
+    <span class="icon">
+        <span class="fa-stack">
+          <i class="fas fa-plus"></i>
+        </span>
+      </span> Add a user
+    </a>
+
+<div id="usersDiv"></div>
+  
+<script>
+    (async () => {
+        const request = await fetch("/api/user")
+        const result = await request.json()
+        result.forEach((user) => {
+            console.log(user)
+            $("#usersDiv").html(`      
+${$("#usersDiv").html()}<br>
+<div class="card">
+    <div class="card-content">${user.username} (<b>Password: ${user.password}</b>) 
+        ${(() => {if (user.isDA) {
+            return `<span class="tag is-info is-light">Domain Admin</span>`
+        } else { return ""}})()}    
+        ${(() => {if (user.isService) {
+            return `<span class="tag is-success is-light">Service Account</span> 
+            <span class="tag is-danger is-light">${user.SPNs[0].map(a => "<span class=\"tag is-danger is-light\">" + a + "</span> ").join("")}</span> `
+        } else { return ""}})()}    
+        <a href="/editUser" class="fa-md">
+            <span class="icon">
+                <span class="fa-stack">
+                    <i class="fas fa-user-edit"></i>
+                </span>
+            </span>
+        </a>
+        <a href="/deleteUser" class="fa-md">
+            <span class="icon">
+                <span class="fa-stack">
+                    <i class="fas fa-user-times"></i>
+                </span>
+            </span>
+        </a>
+    </div>
+</div>`)
+        })
+    })()
+</script>

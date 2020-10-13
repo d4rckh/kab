@@ -1,0 +1,47 @@
+
+<div class="hero is-info">
+    <div class="hero-body">
+        <p class="title">kab add user</p>
+        <p class="subtitle">this form will help you add a new user</p>
+    </div>
+</div>
+
+<br>
+<form action="/api/user" method="post">
+    <input class="input" type="text" name="username" id="usernameForm" placeholder="Username">
+    <br><br>
+    <input class="input" type="text" name="password" id="passwordForm" placeholder="Password">
+    <br><br>
+    Is this a Domain Admin? <input type="checkbox" name="isDA" value="true" class="checkbox">
+    <br><br>
+    Is this a Service Account? <input type="checkbox" name="isService" value="true" class="checkbox">
+    <br><br>
+    <div id="spn-container">
+    </div>
+    <a class="button is-danger" href="javascript:;" id="add-new-spn">Add SPN</a>
+    <input class="button is-success" type="submit" value="Add New User">
+</form>
+<br>
+<section class="section">
+    
+User is already added? See it here: <a href="/users" class="">View Users</a>
+
+</section>
+
+<script>
+$(() => {
+    let i = 0;
+document.getElementById('add-new-spn').onclick = function () {
+    let template = `
+        <input style="width: 100px" placeholder="${i}# SPN" class="input" name="SPNs[${i}]"><br><br>
+        `;
+
+    let container = document.getElementById('spn-container');
+    let div = document.createElement('div');
+    div.innerHTML = template;
+    container.appendChild(div);
+
+    i++;
+}
+})
+</script>

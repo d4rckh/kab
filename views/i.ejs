@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>kab the lab man</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.14.0/js/all.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  </head>
+  <body>
+    
+  <% 
+    function isActive(p, p2=page) {
+        if (p == p2) return "is-active"
+        else return ""
+    }
+
+    const a = "abc"
+  %>
+    
+  <nav class="navbar" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="/">
+            <b>Kab</b>
+        </a>
+  
+      <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+  
+    <div id="navbarBasicExample" class="navbar-menu">
+      <div class="navbar-start">
+        <a class="navbar-item">
+          Dashboard
+        </a>
+  
+
+      </div>
+  
+      <div class="navbar-end">
+            
+        <div class="navbar-item">
+          <div class="buttons">
+            <a class="button is-primary" href="https://github.com/d4rckh/kab">
+              <strong>GitHub Repository</strong>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <div id="app">
+    
+    <section class="main-content columns is-fullheight">
+        <aside class="menu section">
+            <p class="menu-label">
+              Main
+            </p>
+            <ul class="menu-list">
+                <li><a class="<%= isActive("main") %>" href="/">Dashboard</a></li>
+            </ul>
+            <p class="menu-label">
+              Administration
+            </p>
+            <ul class="menu-list">
+                <li>
+                    <a>Users & Groups</a>
+                    <ul>
+                        <li><a class="<%= isActive("users") %>" href="/users">Users</a></li>
+                        <li><a class="<%= isActive("groups") %>" href="/groups">Groups <span class="tag is-danger">To Do</span></a></li>
+                        <li><a class="<%= isActive("adduser") %>" href="/adduser">Add a user</a></li>
+                      <li><a>Add a group  <span class="tag is-danger">To Do</span></a></li>
+                    </ul>
+                  </li>
+                  <li>
+                    <a class="">Clients & Servers</a>
+                    <ul>
+                      <li><a class="<%= isActive("computers") %>" href="/computers">Computers</a></li>
+                      <li><a>Servers <span class="tag is-danger">To Do</span></a></li>
+                      <li><a>Clients <span class="tag is-danger">To Do</span></a></li>
+                      <li><a class="<%= isActive("addcomputer") %>" href="/addcomputer">Add a computer</a></li>
+                    </ul>
+                  </li>
+                    </ul>
+            <p class="menu-label">
+              Forests
+            </p>
+            <ul class="menu-list">
+              <li><a>View all forests <span class="tag is-danger">To Do</span></a></li>
+              <li><a>Make a new forest <span class="tag is-danger">To Do</span></a></li>
+              <li><a>View domains <span class="tag is-danger">To Do</span></a></li>
+            </ul>
+          </aside>
+    
+      <div class="container column is-10">
+        <div class="section">
+    
+          
+            <%- include("pages/" + page) %>
+
+        </div>
+      </div>
+      
+    </section>
+        
+      </div>
+    </body>
+    </html>
+</body>
+</html>
+<html>
+<body>

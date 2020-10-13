@@ -1,0 +1,61 @@
+{
+  "users": [
+    {
+      "password": "P@$$W0r4!!%@*%",
+      "username": "d4rckh",
+      "id": "073c4177-e8a1-4e0b-8337-677aad796f3e"
+    },
+    {
+      "password": "hunter1",
+      "username": "enox",
+      "id": "50fcc662-9bd4-4f86-9028-0c36207c6189"
+    },
+    {
+      "password": "DEMADMINISTRATOR",
+      "username": "DA",
+      "id": "193045e9-6a72-47f1-a830-342d6b2c35b2"
+    },
+    {
+      "password": "Benchods",
+      "username": "Administrator",
+      "isDA": "true",
+      "id": "b4ba6499-2660-4f7d-94a0-a3968e16d913"
+    },
+    {
+      "password": "d4rckhy",
+      "username": "d4rckh",
+      "SPNs": [
+        "exchangeMDB/adsmsEXCAS01.adsecurity.org",
+        "TERMSERV/adsmsEXCAS01.adsecurity.org"
+      ],
+      "isService": "true",
+      "id": "daeff12a-9cc7-4a1a-8af7-90024876af0e"
+    }
+  ],
+  "computers": [
+    {
+      "hostname": "DC1",
+      "id": "e7cd48cc-4454-4067-8b8f-218e1bc6aa94"
+    },
+    {
+      "hostname": "benchod-client",
+      "id": "e145d607-8ead-4207-bc52-dc1b6b10187e"
+    },
+    {
+      "hostname": "hello-sir",
+      "isDC": "true",
+      "id": "8e7a7b4e-de63-47dd-b15f-bdfce77599cc"
+    },
+    {
+      "hostname": "hellosir",
+      "isServer": "true",
+      "isDC": "true",
+      "isDB": "true",
+      "isSP": "true",
+      "isEx": "true",
+      "isVM": "true",
+      "isGC": "true",
+      "id": "14791d06-0d85-447d-bb61-60dae7727c15"
+    }
+  ]
+}
