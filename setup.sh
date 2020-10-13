@@ -2,7 +2,7 @@ echo Making data directory
 mkdir data
 echo Setting up the port to 80!
 echo ------------------------------------------------------------
-echo "| TO CHANGE THE PORT OVERWRITE THE \"PORT\" FILE!"            |
+echo | TO CHANGE THE PORT OVERWRITE THE \"PORT\" FILE!         |
 echo ------------------------------------------------------------
 echo 80 > ./PORT
 echo Wipping the Database!
@@ -20,5 +20,5 @@ sleep 1
 echo WIPPING..........
 echo "{\"users: []\", \"computers\": []}" > data/db.json 
 echo ------------------------------------------------------------
-echo "| Installation finished, to start you have to run ./start.sh"|
+echo | Installation finished, to start you have to run \"./start.sh\"|
 echo ------------------------------------------------------------
