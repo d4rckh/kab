@@ -106,3 +106,4 @@ dist
 ######## KAB FILES ########
 
 ./db.json
+data/
