@@ -12,6 +12,7 @@
   <body>
     
   <% 
+    const enbaleTodos = false
     function isActive(p) {
         if (p == page) return "is-active"
         else return "is-not-active"
@@ -63,6 +64,7 @@
             <ul class="menu-list">
                 <li><a class="<%= isActive("main") %>" href="/">Dashboard</a></li>
                 <li><a class="<%= isActive("domaininformation") %>" href="/domaininformation">Domain Information</a></li>
+                <li><a class="<%= isActive("whatsthis") %>" href="/whatsthis">What's this?</a></li>
             </ul>
             <p class="menu-label">
               Administration
@@ -72,29 +74,37 @@
                     <a>Users & Groups</a>
                     <ul>
                         <li><a class="<%= isActive("users") %>" href="/users">Users</a></li>
-                        <li><a class="<%= isActive("groups") %>" href="/groups">Groups <span class="tag is-danger">To Do</span></a></li>
+                        <% if (enbaleTodos) { %>
+                          <li><a class="<%= isActive("groups") %>" href="/groups">Groups <span class="tag is-danger">To Do</span></a></li>
+                        <% } %>
                         <li><a class="<%= isActive("adduser") %>" href="/adduser">Add a user</a></li>
-                      <li><a>Add a group  <span class="tag is-danger">To Do</span></a></li>
-                    </ul>
+                        <% if (enbaleTodos) { %>
+                          <li><a>Add a group  <span class="tag is-danger">To Do</span></a></li>
+                          <% } %>
+                        </ul>
                   </li>
                   <li>
                     <a class="">Clients & Servers</a>
                     <ul>
                       <li><a class="<%= isActive("computers") %>" href="/computers">Computers</a></li>
-                      <li><a>Servers <span class="tag is-danger">To Do</span></a></li>
+                      <% if (enbaleTodos) { %>
+                        <li><a>Servers <span class="tag is-danger">To Do</span></a></li>
                       <li><a>Clients <span class="tag is-danger">To Do</span></a></li>
+                      <% } %>
                       <li><a class="<%= isActive("addcomputer") %>" href="/addcomputer">Add a computer</a></li>
                     </ul>
                   </li>
                     </ul>
+            <% if (enbaleTodos) { %>
             <p class="menu-label">
               Forests
             </p>
             <ul class="menu-list">
-              <li><a>View all forests <span class="tag is-danger">To Do</span></a></li>
-              <li><a>Make a new forest <span class="tag is-danger">To Do</span></a></li>
-              <li><a>View domains <span class="tag is-danger">To Do</span></a></li>
-            </ul>
+                <li><a>View all forests <span class="tag is-danger">To Do</span></a></li>
+                <li><a>Make a new forest <span class="tag is-danger">To Do</span></a></li>
+                <li><a>View domains <span class="tag is-danger">To Do</span></a></li>
+              <% } %>
+              </ul>
           </aside>
     
       <div class="container column is-10">
@@ -104,7 +114,7 @@
             <br>
 
             <span class="title">Problems Dashboard</span>
-            <br>
+            <br><br>
             <div id="problems-cont">
                 <span class="subtitle">No problems found! (Problems will be displayed here in every page)</span>
             </div>

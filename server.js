@@ -19,6 +19,7 @@ app.get("/users", (req, res) => res.render("i", { page: "users" }))
 app.get("/addcomputer", (req, res) => res.render("i", { page: "addcomputer" }))
 app.get("/computers", (req, res) => res.render("i", { page: "computers" }))
 app.get("/domaininformation", (req, res) => res.render("i", { page: "domaininformation" }))
+app.get("/whatsthis", (req, res) => res.render("i", { page: "whatsthis" }))
 
 
 app.get("/api/domain", (req, res) => {
