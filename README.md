@@ -1,4 +1,4 @@
-# For installation steps scroll below.
+# Most of the stuff in this app does not work and some of the features are missing or not complete. (for now only viewing/adding computers and users works.) 
 # For installation steps scroll below.
 
 # kab
