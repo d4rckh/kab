@@ -9,7 +9,10 @@ db._.mixin(lodashId)
 
 // Set some defaults (required if your JSON file is empty)
 db
-  .defaults({ users: [], computers: [] }).write()
+  .defaults({ users: [], computers: [], domainInfo: {
+      domainName: null,
+      NetBios_Name: null
+  } }).write()
 
 // Add a post
 
@@ -20,6 +23,9 @@ module.exports.addUser = (user) => db.get('users')
 module.exports.getUsers = () => db.get('users')
                                     .value()
 
+module.exports.getDN = () => db.get('domainInfo').value()
+module.exports.setDNDN = (DN) => db.set('domainInfo.domainName', DN).write()
+module.exports.setDNNBN = (NBN) => db.set('domainInfo.NetBios_Name', NBN).write()
 
 module.exports.addComputer = (computer) => db.get('computers')
                                     .insert(computer)

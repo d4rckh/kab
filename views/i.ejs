@@ -12,12 +12,10 @@
   <body>
     
   <% 
-    function isActive(p, p2=page) {
-        if (p == p2) return "is-active"
-        else return ""
+    function isActive(p) {
+        if (p == page) return "is-active"
+        else return "is-not-active"
     }
-
-    const a = "abc"
   %>
     
   <nav class="navbar" role="navigation" aria-label="main navigation">
@@ -64,6 +62,7 @@
             </p>
             <ul class="menu-list">
                 <li><a class="<%= isActive("main") %>" href="/">Dashboard</a></li>
+                <li><a class="<%= isActive("domaininformation") %>" href="/setupdomain">Domain Information</a></li>
             </ul>
             <p class="menu-label">
               Administration
@@ -100,10 +99,15 @@
     
       <div class="container column is-10">
         <div class="section">
-    
-          
-            <%- include("pages/" + page) %>
 
+            <%- include("pages/" + page) %>
+            <br>
+
+            <span class="title">Problems Dashboard</span>
+            <br>
+            <div id="problems-cont">
+                <span class="subtitle">No problems found! (Problems will be displayed here in every page)</span>
+            </div>
         </div>
       </div>
       
@@ -111,6 +115,26 @@
         
       </div>
     </body>
+    <script>
+
+    $(async () => {
+        const request = await fetch("/api/problems")
+        const problems = await request.json()
+        
+        if (problems.length != 0) $("#problems-cont").html(``)
+        problems.forEach((problem) => {
+            $("#problems-cont").html(`
+            ${$("#problems-cont").html()}
+            <div class="notification is-${problem.type}">
+                <p class="title is-4">UNSOLVED PROBLEM ${problem.type.toUpperCase()}: ${problem.name}</p> <p class="subtitle">${problem.description} <br><br><a class="is-2 is-light button is-${problem.type}" href="${problem.solveLink}">SOLVE NOW</a>
+</p>
+            </div>
+            `)
+        })
+    })
+
+
+    </script>
     </html>
 </body>
 </html>

@@ -18,6 +18,18 @@ app.get("/adduser", (req, res) => res.render("i", { page: "adduser" }))
 app.get("/users", (req, res) => res.render("i", { page: "users" }))
 app.get("/addcomputer", (req, res) => res.render("i", { page: "addcomputer" }))
 app.get("/computers", (req, res) => res.render("i", { page: "computers" }))
+app.get("/domaininformation", (req, res) => res.render("i", { page: "domaininformation" }))
+
+
+app.get("/api/domain", (req, res) => {
+    res.json(dataStorage.getDN())
+})
+
+app.post("/api/updatedomaininformation", (req, res) => {
+    dataStorage.setDNNBN(req.body.NetBios_Name)
+    dataStorage.setDNDN(req.body.domainName)
+    res.sendStatus(200)
+})
 
 app.post("/api/user", (req, res) => {
     res.send(dataStorage.addUser({
@@ -28,9 +40,40 @@ app.post("/api/user", (req, res) => {
         isService: req.body.isService
     }))
 })
+
 app.get("/api/user", (req, res) => {
     res.json(dataStorage.getUsers().map(a => new UserClass(a)))
 })
+
+app.get("/api/problems", (req, res) => {
+    var problems = []
+    
+    const dn = dataStorage.getDN()
+
+    if (!dn.domainName || !dn.NetBios_Name ) problems.push({
+        name: "The domain IS NOT SETUP!",
+        prority: 4,
+        type: "danger",
+        solveLink: "/domaininformation",
+        description: "The domain information is missing! WITHOUT THIS NOTHING WILL WORK!"
+    })
+    if (dataStorage.getUsers().length == 0) problems.push({
+        name: "No users added",
+        prority: 4,
+        type: "warning",
+        solveLink: "/adduser",
+        description: "The User database is empty, you have to add a user to enable most of the features of this application!"
+    })
+    if (dataStorage.getComputers().length == 0) problems.push({
+        name: "No computers added",
+        prority: 4,
+        type: "warning",
+        solveLink: "/addcomputer",
+        description: "The Computer database is empty, you have to add a computer to enable most of the features of this application!"
+    })
+    res.json(problems)
+})
+
 app.post("/api/computer", (req, res) => {
     res.send(dataStorage.addComputer({
         hostname: req.body.hostname,

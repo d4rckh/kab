@@ -1,0 +1,32 @@
+
+<article class="message is-danger">
+    <div class="message-body">
+        This is the most important piece of information, make sure it's accurate.
+    </div>
+  </article>
+
+
+<div class="hero is-info">
+    <div class="hero-body">
+        <p class="title">kab domain information</p>
+        <p class="subtitle">here you can set up the domain information</p>
+    </div>
+</div>
+<br>
+<form action="/api/updatedomaininformation" method="post">
+    <input class="input" type="text" id="formDn" name="domainName" placeholder="Domain Name. E.g. 'lab.local'">
+    <br><br>
+    <input class="input" type="text" id="formNbn" name="NetBios_Name" placeholder="Net Bios Name. E.g. 'LAB'">
+    <br><br>
+    <input class="button is-success" type="submit" value="Update domain information (takes effect as soon as you press)">
+</form>
+
+<script>
+    (async () => {
+        const request = await fetch("/api/domain")
+        const dn = await request.json()
+      
+        $("#formDn").val(dn.domainName)
+        $("#formNbn").val(dn.NetBios_Name)
+    })()
+</script>
