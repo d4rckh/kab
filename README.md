@@ -14,7 +14,7 @@ chmod +x ./start.sh
 ./setup.sh
 ```
 
-## RUNNING
+## RUNNING - LINUX
 
 **I RECOMMEND YOU USE PM2 / SCREEN / TMUX TO RUN THIS APP**
 
@@ -32,7 +32,7 @@ cd kab
 ./setup.bat
 ```
 
-## RUNNING
+## RUNNING - WINDOWS
 
 ```
 ./start.bat
