@@ -48,4 +48,12 @@ app.get("/api/computer", (req, res) => {
     res.json(dataStorage.getComputers().map(a => new ComputerClass(a)))
 })
 
-app.listen(process.env.PORT || 1010);
+const fs = require('fs');
+
+fs.readFile('PORT', 'utf8' , (err, data) => {
+  if (err) {
+    console.error(err);
+    return
+  }
+  app.listen(data || 1010);
+});
