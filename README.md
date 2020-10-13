@@ -2,12 +2,11 @@
 kab the lab manager
  
 
-## INSTALLATION
+## INSTALLATION - LINUX
 
 ```
 git clone https://github.com/d4rckh/kab
 cd kab
-echo 80 > PORT
 chmod +x ./install.sh
 chmod +x ./setup.sh
 chmod +x ./start.sh
@@ -20,5 +19,21 @@ chmod +x ./start.sh
 **I RECOMMEND YOU USE PM2 / SCREEN / TMUX TO RUN THIS APP**
 
 ```
-./start.js
+./start.sh
+```
+
+
+## INSTALLATION - WINDOWS
+
+```
+git clone https://github.com/d4rckh/kab
+cd kab
+./install.bat
+./setup.bat
+```
+
+## RUNNING
+
+```
+./start.bat
 ```

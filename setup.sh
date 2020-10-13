@@ -16,7 +16,7 @@ sleep 1
 echo 2
 sleep 1
 echo 1
-sleep 1
+sleep 1 
 echo WIPPING..........
 echo "{\"users\": [], \"computers\": []}" > data/db.json 
 echo ------------------------------------------------------------
