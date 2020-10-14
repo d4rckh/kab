@@ -13,39 +13,66 @@
         <span class="fa-stack">
           <i class="fas fa-plus"></i>
         </span>
-      </span> Add a computer
-    </a>
+    </span> 
+    Add a computer
+</a>
+
+Search a computer: <input type="text" name="search" id="searchBar" class="input" placeholder="Search terms...">
+<br>
+<span id="currentSearchTerms"></span>
+
 
 <div id="computersDiv"></div>
   
 <script>
+
+    function renderComputers(result) {
+        $("#currentSearchTerms").text("Showing up " + result.length)
+        $("#computersDiv").html("")
+
+        result.forEach((computer) => {
+            $("#computersDiv").html(`      
+        ${$("#computersDiv").html()}<br>
+        <div class="card">
+            <div class="card-content"><b>${computer.hostname}</b>
+                ${(() => {if (computer.isDC) {
+                    return `<span class="tag is-success is-light">Domain Controller</span> 
+                    ${computer.isGC ? "<span class=\"tag is-danger is-light\">Global Catalog</span>" : ""}
+                    ${computer.isRODC ? "<span class=\"tag is-danger is-light\">RODC</span>" : ""}`
+                } else { return ""}})()}    
+                ${(() => {if (computer.isDB) {
+                    return `<span class="tag is-success is-light">Database Server</span>`
+                } else { return ""}})()}    
+                ${(() => {if (computer.isSP) {
+                    return `<span class="tag is-success is-light">SharePoint</span>`
+                } else { return ""}})()}    
+                ${(() => {if (computer.isEx) {
+                    return `<span class="tag is-success is-light">Exchange</span>`
+                } else { return ""}})()}    
+                ${(() => {if (computer.isVM) {
+                    return `<span class="tag is-danger is-light">Virtualized</span>`
+                } else { return ""}})()}    
+            </div>
+        </div>`)
+                })
+    }
+
     (async () => {
         const request = await fetch("/api/computer")
         const result = await request.json()
-        result.forEach((computer) => {
-            $("#computersDiv").html(`      
-${$("#computersDiv").html()}<br>
-<div class="card">
-    <div class="card-content"><b>${computer.hostname}</b>
-        ${(() => {if (computer.isDC) {
-            return `<span class="tag is-success is-light">Domain Controller</span> 
-            ${computer.isGC ? "<span class=\"tag is-danger is-light\">Global Catalog</span>" : ""}
-            ${computer.isRODC ? "<span class=\"tag is-danger is-light\">RODC</span>" : ""}`
-        } else { return ""}})()}    
-        ${(() => {if (computer.isDB) {
-            return `<span class="tag is-success is-light">Database Server</span>`
-        } else { return ""}})()}    
-        ${(() => {if (computer.isSP) {
-            return `<span class="tag is-success is-light">SharePoint</span>`
-        } else { return ""}})()}    
-        ${(() => {if (computer.isEx) {
-            return `<span class="tag is-success is-light">Exchange</span>`
-        } else { return ""}})()}    
-        ${(() => {if (computer.isVM) {
-            return `<span class="tag is-danger is-light">Virtualized</span>`
-        } else { return ""}})()}    
-    </div>
-</div>`)
-        })
+        var computers = result
+
+        document.querySelector('#searchBar').addEventListener('input', filterList);
+
+        function filterList(event) {
+            const filter = event.target.value;
+            window.location.hash = `#/?filter=${filter}`;
+        
+            computers = result.filter(u => u.hostname.includes(filter))
+            renderComputers(computers)
+        
+        }
+
+        renderComputers(result)
     })()
 </script>

@@ -13,17 +13,24 @@
         <span class="fa-stack">
           <i class="fas fa-plus"></i>
         </span>
-      </span> Add a user
-    </a>
+    </span> 
+    Add a user
+</a>
+<br>
+
+Search a user: <input type="text" name="search" id="searchBar" class="input" placeholder="Search terms...">
+<br>
+<span id="currentSearchTerms"></span>
 
 <div id="usersDiv"></div>
   
 <script>
-    (async () => {
-        const request = await fetch("/api/user")
-        const result = await request.json()
+
+    function renderUsers(result) {
+        $("#usersDiv").html("")
+        $("#currentSearchTerms").text("Showing up " + result.length)
+
         result.forEach((user) => {
-            console.log(user)
             $("#usersDiv").html(`      
 ${$("#usersDiv").html()}<br>
 <div class="card">
@@ -52,5 +59,27 @@ ${$("#usersDiv").html()}<br>
     </div>
 </div>`)
         })
+    }
+
+    (async () => {
+    
+        const request = await fetch("/api/user")
+        const result = await request.json()
+        var users = result
+
+
+        document.querySelector('#searchBar').addEventListener('input', filterList);
+
+        function filterList(event) {
+            const filter = event.target.value;
+            window.location.hash = `#/?filter=${filter}`;
+        
+            users = result.filter(u => u.username.includes(filter))
+            renderUsers(users)
+        
+        }
+
+        renderUsers(users)
+        
     })()
 </script>
