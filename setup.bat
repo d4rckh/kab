@@ -1,3 +1,4 @@
+@echo off
 echo Making data directory
 md data
 echo Setting up the port!

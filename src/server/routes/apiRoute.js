@@ -1,29 +1,22 @@
 const bodyParser = require("body-parser")
 const express = require("express");
-const app = express();
+const Router = express.Router();
 
-const UserClass = require("./src/classes/User")
-const ComputerClass = require("./src/classes/Computer")
-const dataStorage = require("./dataStorage")
+const UserClass = require("../../classes/User")
+const ComputerClass = require("../../classes/Computer")
+const dataStorage = require("../../dataStorage")
 
-app.use(bodyParser.urlencoded({ extended: true }))
-
-app.use(bodyParser.json())
-
-app.set("view engine", "ejs");
-
-
-app.get("/api/domain", (req, res) => {
+Router.get("/domain", (req, res) => {
     res.json(dataStorage.getDN())
 })
 
-app.post("/api/updatedomaininformation", (req, res) => {
+Router.post("/updatedomaininformation", (req, res) => {
     dataStorage.setDNNBN(req.body.NetBios_Name)
     dataStorage.setDNDN(req.body.domainName)
     res.sendStatus(200)
 })
 
-app.post("/api/user", (req, res) => {
+Router.post("/user", (req, res) => {
     res.send(dataStorage.addUser({
         password: req.body.password,
         username: req.body.username,
@@ -33,11 +26,11 @@ app.post("/api/user", (req, res) => {
     }))
 })
 
-app.get("/api/user", (req, res) => {
+Router.get("/user", (req, res) => {
     res.json(dataStorage.getUsers().map(a => new UserClass(a)))
 })
 
-app.get("/api/problems", (req, res) => {
+Router.get("/problems", (req, res) => {
     var problems = []
     
     const dn = dataStorage.getDN()
@@ -66,7 +59,7 @@ app.get("/api/problems", (req, res) => {
     res.json(problems)
 })
 
-app.post("/api/computer", (req, res) => {
+Router.post("/computer", (req, res) => {
     res.send(dataStorage.addComputer({
         hostname: req.body.hostname,
         isServer:req.body.isServer,
@@ -79,16 +72,8 @@ app.post("/api/computer", (req, res) => {
         isRODC: req.body.isRODC,
     }))
 })
-app.get("/api/computer", (req, res) => {
+Router.get("/computer", (req, res) => {
     res.json(dataStorage.getComputers().map(a => new ComputerClass(a)))
 })
 
-const fs = require('fs');
-
-fs.readFile('PORT', 'utf8' , (err, data) => {
-  if (err) {
-    console.error(err);
-    return
-  }
-  app.listen(data || 1010);
-});
+module.exports = Router
