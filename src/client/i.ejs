@@ -110,14 +110,13 @@
       <div class="container column is-10">
         <div class="section">
 
-            <%- include("pages/" + page) %>
-            <br>
+            <div class="columns" id="main-columns">
+              <div class="column">
+                <%- include("pages/" + page) %>
+              </div>
 
-            <span class="title">Problems Dashboard</span>
-            <br><br>
-            <div id="problems-cont">
-                <span class="subtitle">No problems found! (Problems will be displayed here in every page)</span>
             </div>
+            <br>
         </div>
       </div>
       
@@ -131,13 +130,20 @@
         const request = await fetch("/api/problems")
         const problems = await request.json()
         
-        if (problems.length != 0) $("#problems-cont").html(``)
+        if (problems.length != 0) $("#main-columns").html(`
+              ${$("#main-columns").html()}
+              <div class="column is-one-quarter ">
+                <span class="title">Problems</span>
+                <br><br>
+                <div id="problems-cont">
+                </div>    
+              </div>`)
+              
         problems.forEach((problem) => {
             $("#problems-cont").html(`
             ${$("#problems-cont").html()}
             <div class="notification is-${problem.type}">
-                <p class="title is-4">UNSOLVED PROBLEM ${problem.type.toUpperCase()}: ${problem.name}</p> <p class="subtitle">${problem.description} <br><br><a class="is-2 is-light button is-${problem.type}" href="${problem.solveLink}">SOLVE NOW</a>
-</p>
+                <p class="title is-4">UNSOLVED PROBLEM ${problem.type.toUpperCase()}: ${problem.name}</p> <p class="subtitle">${problem.description} <br><br><a class="is-2 is-light button is-${problem.type}" href="${problem.solveLink}">SOLVE NOW</a></p>
             </div>
             `)
         })
@@ -145,6 +151,13 @@
 
 
     </script>
+    <footer class="footer">
+      <div class="content has-text-centered">
+        <p>
+          <strong>kab</strong> by <a href="https://github.com/d4rckh">d4rckh</a>.
+        </p>
+      </div>
+    </footer>
     </html>
 </body>
 </html>

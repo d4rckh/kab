@@ -12,8 +12,34 @@
     </div>
 </div>
 <br>
-<a href="/whatsthis">Click me for more info on what this tool is.</a>
-<br>
+<div class="has-text-centered subtitle is-4"></div>
+    <nav class="level">
+        <div class="level-item has-text-centered">
+            <div>
+              <p class="heading">Domain name</p>
+              <p class="title" id="domainNameInfo">Loading..</p>
+            </div>
+          </div>
+        <div class="level-item has-text-centered">
+            <div>
+              <p class="heading">NetBios Name</p>
+              <p class="title" id="NetBiosNameInfo">Loading..</p>
+            </div>
+          </div>
+        <div class="level-item has-text-centered">
+          <div>
+            <p class="heading">Added Computers</p>
+            <p class="title" id="computersCount">Loading..</p>
+          </div>
+        </div>
+        <div class="level-item has-text-centered">
+          <div>
+            <p class="heading">Added Users</p>
+            <p class="title" id="usersCount">Loading..</p>
+          </div>
+        </div>
+      </nav>
+
 <div class="columns">
     <div class="column">
         <div class="section">
@@ -46,3 +72,19 @@
         </div>
     </div>
 </div>
+
+
+<script>
+    (async () => {
+        const computersrequest = await fetch("/api/computer")
+        const computersresult = await computersrequest.json()
+        $("#computersCount").text(computersresult.length)
+        const usersrequest = await fetch("/api/user")
+        const usersresult = await usersrequest.json()
+        $("#usersCount").text(usersresult.length)
+        const domaininfo = await fetch("/api/domain")
+        const domaininfores = await domaininfo.json()
+        $("#domainNameInfo").text(domaininfores.domainName)
+        $("#NetBiosNameInfo").text(domaininfores.NetBios_Name)
+    })()
+</script>
