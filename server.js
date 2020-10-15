@@ -27,7 +27,7 @@ app.post("/api/user", (req, res) => {
     res.send(dataStorage.addUser({
         password: req.body.password,
         username: req.body.username,
-        SPNs: req.body.SPNs,
+        SPNs: req.body.SPNs.split(","),
         isDA: req.body.isDA,
         isService: req.body.isService
     }))

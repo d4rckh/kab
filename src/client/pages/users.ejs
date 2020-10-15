@@ -31,6 +31,7 @@ Search a user: <input type="text" name="search" id="searchBar" class="input" pla
         $("#currentSearchTerms").text("Showing up " + result.length)
 
         result.forEach((user) => {
+            console.log(user)
             $("#usersDiv").html(`      
 ${$("#usersDiv").html()}<br>
 <div class="card">
@@ -40,16 +41,16 @@ ${$("#usersDiv").html()}<br>
         } else { return ""}})()}    
         ${(() => {if (user.isService) {
             return `<span class="tag is-success is-light">Service Account</span> 
-            <span class="tag is-danger is-light">${user.SPNs[0].map(a => "<span class=\"tag is-danger is-light\">" + a + "</span> ").join("")}</span> `
+            ${user.SPNs.map(a => "<span class=\"tag is-danger is-light\">" + a + "</span> ").join(" ")} `
         } else { return ""}})()}    
-        <a href="/editUser" class="fa-md">
+        <a href="/edituser/?id=${user.id}" class="fa-md">
             <span class="icon">
                 <span class="fa-stack">
                     <i class="fas fa-user-edit"></i>
                 </span>
             </span>
         </a>
-        <a href="/deleteUser" class="fa-md">
+        <a href="/api/deleteuser/${user.id}" class="fa-md">
             <span class="icon">
                 <span class="fa-stack">
                     <i class="fas fa-user-times"></i>

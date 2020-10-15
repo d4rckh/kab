@@ -1,0 +1,52 @@
+
+
+<div class="hero is-info">
+    <div class="hero-body">
+        <p class="title">editing user <span id="userid"></span></p>
+        <p class="subtitle">here you can edit your user</p>
+    </div>
+</div>
+<br>
+
+<form action="/api/edituser" method="post">
+    <input name="userid" id="useridform" style="display: none;">
+    <input class="input" type="text" name="username" id="usernameForm" placeholder="Username">
+    <br><br>
+    <input class="input" type="text" name="password" id="passwordForm" placeholder="Password">
+    <br><br>
+    Is this a Domain Admin? <input type="checkbox" id="isDA" name="isDA" value="true" class="checkbox">
+    <br><br>
+    Is this a Service Account? <input type="checkbox" id="isService" name="isService" value="true" class="checkbox">
+    <br><br>
+    <input class="input" type="text" name="SPNs" id="SPNs" placeholder="SPNs splitted by , . for example: SPN1,SPN2,SPN3">
+    <br><br> 
+    <input class="button is-success" type="submit" value="Update user">
+</form>
+
+<script>
+    function gup( name, url ) {
+        if (!url) url = location.href;
+        name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
+        var regexS = "[\\?&]"+name+"=([^&#]*)";
+        var regex = new RegExp( regexS );
+        var results = regex.exec( url );
+        return results == null ? null : results[1];
+    }
+
+    $(async () =>{
+        const id = gup("id")
+        $("#userid").text(id)
+
+        const uinforequest = await fetch("/api/user/" + id)
+        const uinfo = await uinforequest.json()
+
+        $("#useridform").val(uinfo.id)
+        $("#usernameForm").val(uinfo.username)
+        $("#passwordForm").val(uinfo.password)
+        $("#SPNs").val(uinfo.SPNs.join(","))
+        $("#isDA").val(uinfo.isDA.toString())
+        $("#isService").prop('checked', uinfo.isService)
+        $('#isDA').prop('checked', uinfo.isDA);
+    })
+    
+</script>

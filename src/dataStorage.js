@@ -16,23 +16,18 @@ db
 
 // Add a post
 
-module.exports.addUser = (user) => db.get('users')
-                                    .insert(user)
-                                    .write().id;
-
-module.exports.getUsers = () => db.get('users')
-                                    .value()
+module.exports.getUser = (user) => db.get('users').find({ id: user }).value()
+module.exports.addUser = (user) => db.get('users').insert(user).write().id;
+module.exports.getUsers = () => db.get('users').value()
+module.exports.updateUser = (id, newuser) => db.get('users').find({ id }).assign(newuser).write()
+module.exports.deleteUser = (id) => db.get('users').remove({ id }).write()
 
 module.exports.getDN = () => db.get('domainInfo').value()
 module.exports.setDNDN = (DN) => db.set('domainInfo.domainName', DN).write()
 module.exports.setDNNBN = (NBN) => db.set('domainInfo.NetBios_Name', NBN).write()
 
-module.exports.addComputer = (computer) => db.get('computers')
-                                    .insert(computer)
-                                    .write().id;
-
-module.exports.getComputers = () => db.get('computers')
-                                    .value()
+module.exports.addComputer = (computer) => db.get('computers').insert(computer).write().id;
+module.exports.getComputers = () => db.get('computers').value()
 
 
 // Set a user using Lodash shorthand syntax

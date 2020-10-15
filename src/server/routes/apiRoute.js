@@ -17,6 +17,16 @@ Router.post("/updatedomaininformation", (req, res) => {
     res.redirect("/domaininformation")
 })
 
+Router.post("/edituser", (req, res) => {
+    dataStorage.updateUser(req.body.userid, req.body)
+    res.redirect("/users")
+})
+
+Router.get("/deleteuser/:id", (req, res) => {
+    dataStorage.deleteUser(req.params.id)
+    res.redirect("/users")
+})
+
 Router.post("/user", (req, res) => {
     const userid = (dataStorage.addUser({
         password: req.body.password,
@@ -31,6 +41,10 @@ Router.post("/user", (req, res) => {
 
 Router.get("/user", (req, res) => {
     res.json(dataStorage.getUsers().map(a => new UserClass(a)))
+})
+
+Router.get("/user/:id", (req, res) => {
+    res.json(new UserClass(dataStorage.getUser(req.params.id)))
 })
 
 Router.get("/problems", (req, res) => {

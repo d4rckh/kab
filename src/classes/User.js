@@ -16,7 +16,12 @@ module.exports = class User {
     
         this.isDA = Boolean(uo.isDA) || false
         this.isService = Boolean(uo.isService) || false
-        this.SPNs = Array(uo.SPNs) || []
+        this.SPNs = []
+        if (typeof uo.SPNs == "string") {
+            this.SPNs = uo.SPNs.split(",")
+        } else {
+            this.SPNs = uo.SPNs || []
+        }
     }
 
     toJson() {
