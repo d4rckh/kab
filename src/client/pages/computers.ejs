@@ -8,7 +8,6 @@
 <br>
 
 <a href="/addcomputer" class="fa-lg">
-    
     <span class="icon">
         <span class="fa-stack">
           <i class="fas fa-plus"></i>
@@ -51,7 +50,17 @@ Search a computer: <input type="text" name="search" id="searchBar" class="input"
                 } else { return ""}})()}    
                 ${(() => {if (computer.isVM) {
                     return `<span class="tag is-danger is-light">Virtualized</span>`
-                } else { return ""}})()}    
+                } else { return ""}})()}
+                ${(() => {if (computer.OS) {
+                    return `<span class="tag is-danger is-light">${computer.OS}</span>`
+                } else { return ""}})()}
+                <a href="/editcomputer/?id=${computer.id}" class="fa-md">
+                    <span class="icon">
+                        <span class="fa-stack">
+                            <i class="fas fa-edit"></i>
+                        </span>
+                    </span>
+                </a>    
             </div>
         </div>`)
                 })

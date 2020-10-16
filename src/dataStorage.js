@@ -28,6 +28,8 @@ module.exports.setDNNBN = (NBN) => db.set('domainInfo.NetBios_Name', NBN).write(
 
 module.exports.addComputer = (computer) => db.get('computers').insert(computer).write().id;
 module.exports.getComputers = () => db.get('computers').value()
+module.exports.getComputer = (id) => db.get('computers').find({ id }).value()
+module.exports.updateComputer = (id, newcomputer) => db.get('computers').find({ id }).assign(newcomputer).write()
 
 
 // Set a user using Lodash shorthand syntax

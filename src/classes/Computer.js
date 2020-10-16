@@ -6,7 +6,7 @@ module.exports = class Computer {
         if (!uo.hostname) throw new Error("HOSTNAME IS REQUIRED!")
         
         this.hostname = String(uo.hostname)
-        
+        this.OS = String(uo.OS)
     
         this.id = String(uo.id)
     

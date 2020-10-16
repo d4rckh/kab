@@ -1,0 +1,73 @@
+
+<div class="hero is-info">
+    <div class="hero-body">
+        <p class="title">editing computer <span id="computerid"></span></p>
+        <p class="subtitle">here you can edit your computer</p>
+    </div>
+</div>
+<br>
+
+<br>
+<form action="/api/editcomputer" method="post">
+    <input name="computerid" id="computeridform" style="display: none;">
+    <input class="input" type="text" name="hostname" id="hostnameForm" placeholder="Hostname">
+    <br><br>
+    <input class="input" type="text" name="OS" id="OSForm" placeholder="Operating System">
+    <br><br>
+    Is it a server? <input type="checkbox" name="isServer" id="isServerForm" alue="true" class="checkbox">
+    <br><br>
+    Is this a Domain Controller? <input type="checkbox" name="isDC"  id="isDCForm" value="true" class="checkbox">
+    <br><br>
+    Does it server a database? <input type="checkbox" name="isDB" id="isDBForm" value="true" class="checkbox">
+    <br><br>
+    Is it a sharepoint server? <input type="checkbox" name="isSP" id="isSPForm" value="true" class="checkbox">
+    <br><br>
+    Is it an exchange server? <input type="checkbox" name="isEx" id="isExForm" value="true" class="checkbox">
+    <br><br>
+    Is this computer virtualized? <input type="checkbox" name="isVM" id="isVMForm" value="true" class="checkbox">
+    <br><br>
+    Is this a Global Catalog? <input type="checkbox" name="isGC" id="isGCForm" value="true" class="checkbox">
+    <br><br>
+    Is this a Read Only DC? <input type="checkbox" name="isRODC" id="isRODCForm" value="true" class="checkbox">
+    <br><br>
+    <input class="button is-success" type="submit" value="Edit Computer">
+</form>
+
+
+<br>
+
+<script>
+    function gup( name, url ) {
+        if (!url) url = location.href;
+        name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
+        var regexS = "[\\?&]"+name+"=([^&#]*)";
+        var regex = new RegExp( regexS );
+        var results = regex.exec( url );
+        return results == null ? null : results[1];
+    }
+
+    $(async () =>{
+        const id = gup("id")
+        $("#computer").text(id)
+        $("#computeridform").val(id)
+
+        const uinforequest = await fetch("/api/computer/" + id)
+        const uinfo = await uinforequest.json()
+        $("#OSForm").val(uinfo.OS)
+
+        /*$("#useridform").val(uinfo.id)
+        $("#usernameForm").val(uinfo.username)
+        $("#passwordForm").val(uinfo.password)
+        $("#SPNs").val(uinfo.SPNs.join(","))
+        $("#isDA").val(uinfo.isDA.toString())
+        $("#isService").prop('checked', uinfo.isService)
+        $('#isDA').prop('checked', uinfo.isDA);*/
+        $("#hostnameForm").val(uinfo.hostname)
+
+        Object.keys(uinfo).filter(q => q.startsWith("is")).forEach((i) => {
+            $("#" + i + "Form").prop("checked", uinfo[i])
+        })
+
+    })
+    
+</script>

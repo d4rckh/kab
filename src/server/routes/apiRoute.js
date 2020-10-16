@@ -18,8 +18,13 @@ Router.post("/updatedomaininformation", (req, res) => {
 })
 
 Router.post("/edituser", (req, res) => {
-    dataStorage.updateUser(req.body.userid, req.body)
+    dataStorage.updateUser(req.body.userid, new UserClass(req.body))
     res.redirect("/users")
+})
+
+Router.post("/editcomputer", (req, res) => {
+    dataStorage.updateComputer(req.body.computerid, new ComputerClass(req.body))
+    res.redirect("/computers")
 })
 
 Router.get("/deleteuser/:id", (req, res) => {
@@ -45,6 +50,10 @@ Router.get("/user", (req, res) => {
 
 Router.get("/user/:id", (req, res) => {
     res.json(new UserClass(dataStorage.getUser(req.params.id)))
+})
+
+Router.get("/computer/:id", (req, res) => {
+    res.json(new ComputerClass(dataStorage.getComputer(req.params.id)))
 })
 
 Router.get("/problems", (req, res) => {
@@ -87,6 +96,7 @@ Router.post("/computer", (req, res) => {
         isVM: req.body.isVM,
         isGC: req.body.isGC,
         isRODC: req.body.isRODC,
+        OS: req.body.OS
     }))
     res.redirect("/computers")
 })
